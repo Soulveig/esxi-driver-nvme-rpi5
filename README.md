@@ -43,7 +43,7 @@ returned MD5 `c9a5a6878d97b48cc965c1e41859f034`; a separate post-package 256 MiB
 write/read also matched; failed reads and writes remained zero. No NVMe timeout,
 reset, abort, heartbeat NMI, exception or panic occurred in the release check.
 
-### Visual confirmation / Визуальное подтверждение
+### Visual confirmation
 
 ![ESXi NVMe adapter vmhba0 using the nvme_pcie driver](docs/images/esxi-nvme-vmhba0.png)
 
@@ -52,20 +52,11 @@ shows `NM610 PRO` because ESXi uses the generic PCI ID description for
 `1d97:1202`; the device page below reports the actual tested model, Lexar
 NM620 256 GB.
 
-`vmhba0` присутствует и использует драйвер `nvme_pcie`. На странице адаптера
-показано `NM610 PRO`, потому что ESXi использует общее описание PCI ID
-`1d97:1202`; на странице самого устройства ниже указана фактическая проверенная
-модель — Lexar NM620 256 ГБ.
-
 ![Lexar NM620 detected as a local NVMe disk with a VMFS partition](docs/images/esxi-nvme-vmfs6.png)
 
 The Lexar NM620 is exposed as a 238.47 GB local NVMe disk. ESXi sees its GPT
 layout and the VMFS partition occupying the device, confirming that the disk
 is available for VMFS storage.
-
-Lexar NM620 определяется как локальный NVMe-диск объёмом 238,47 ГБ. ESXi видит
-разметку GPT и раздел VMFS на всём доступном пространстве, что подтверждает
-работу диска как VMFS-хранилища.
 
 ### Installation
 
@@ -138,6 +129,21 @@ original VIB; preserve both before installation.
 запись/чтение 4 ГБ вернула MD5 `c9a5a6878d97b48cc965c1e41859f034`.
 Дополнительная проверка 256 МБ после установки пакета также совпала. Ошибок
 чтения и записи, NVMe timeout/reset/abort, heartbeat NMI, exception и panic нет.
+
+### Визуальное подтверждение
+
+![NVMe-адаптер vmhba0 в ESXi использует драйвер nvme_pcie](docs/images/esxi-nvme-vmhba0.png)
+
+`vmhba0` присутствует и использует драйвер `nvme_pcie`. На странице адаптера
+показано `NM610 PRO`, потому что ESXi использует общее описание PCI ID
+`1d97:1202`; на странице самого устройства ниже указана фактическая проверенная
+модель — Lexar NM620 256 ГБ.
+
+![Lexar NM620 определяется как локальный NVMe-диск с разделом VMFS](docs/images/esxi-nvme-vmfs6.png)
+
+Lexar NM620 определяется как локальный NVMe-диск объёмом 238,47 ГБ. ESXi видит
+разметку GPT и раздел VMFS на всём доступном пространстве, что подтверждает
+работу диска как VMFS-хранилища.
 
 ### Установка
 
