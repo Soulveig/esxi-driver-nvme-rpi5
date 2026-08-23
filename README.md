@@ -10,17 +10,13 @@
 
 ### What changed
 
-The v1.0.0 `nvme_pcie` transport adaptation remains byte-for-byte unchanged.
-Version 1.1.0 additionally fixes a startup lost wakeup in `vmknvme`. The
+Version 1.1.0 fixes a startup lost wakeup in `vmknvme`. The
 transport can complete an early raw admin command before
 `NVMEExecuteRawCommand` starts waiting. Stock code skipped its existing
 pending-state check on the first iteration, lost the already-issued wakeup and
 waited the full 10/20 second timeout.
 
 The fix changes one branch so pending state is checked before the first wait.
-It adds no CQ processing, timeout shortening, busy loop or second completion
-owner. The complete stock `native_m.v00` is preserved except for this one-byte
-change in its embedded `vmknvme`.
 
 ### Validated result
 
@@ -79,17 +75,13 @@ Do not install without a known-good alternate bootbank and physical console.
 
 ### Что изменено
 
-Адаптация транспорта `nvme_pcie` из v1.0.0 сохранена byte-for-byte. Версия
-1.1.0 дополнительно исправляет lost wakeup при загрузке в `vmknvme`. Транспорт
+Версия 1.1.0 исправляет lost wakeup при загрузке в `vmknvme`. Транспорт
 может завершить раннюю raw admin-команду до входа `NVMEExecuteRawCommand` в
 ожидание. Штатный код при первой итерации пропускал существующую проверку
 pending-state, терял уже отправленное пробуждение и ждал полный таймаут 10/20
 секунд.
 
-Изменена одна ветка: состояние проверяется до первого ожидания. Новый
-обработчик CQ, сокращение таймаутов, busy loop или второй владелец completion не
-добавляются. Полный штатный `native_m.v00` сохранён, кроме этого однобайтового
-изменения во встроенном `vmknvme`.
+Изменена одна ветка: состояние проверяется до первого ожидания.
 
 ### Проверенный результат
 
