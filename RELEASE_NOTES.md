@@ -1,23 +1,28 @@
-# v1.0.0
+# v1.1.0
 
 ## English
 
-- First release of the Raspberry Pi 5 completion-path adaptation for the stock
-  ESXi-Arm `nvme_pcie` transport.
-- Adds bounded admin CQ processing, one post-submission IO CQ pass, and up to
-  eight productive lifecycle-timer passes.
-- Uses the VMKNVME completion world; installation instructions set
-  `vmknvme_compl_world_type=1`.
-- Targets only ESXi-Arm 8.0U3c build 24449057.
-- Requires BootBankInstaller, disabled Secure Boot, and a reboot.
+- Adds a one-branch lost-wakeup fix to build-24449057 `vmknvme`.
+- Checks raw-command pending state before the first wait when the transport has
+  already completed inline.
+- Reduces validated `nvmeBusDriver` attachment from 70,456 ms to 429 ms and
+  external reachability from about 66 seconds to 26 seconds.
+- Keeps the v1.0.0 `nvme_pcie` transport payload byte-for-byte unchanged.
+- Packages the fix as a byte-preserving `native-misc-drivers` replacement so
+  the patched module loads in the original `native_m.v00` position.
+- Keeps single CQ ownership; no timeout shortening or extra polling is added.
 
 ## Русский
 
-- Первый релиз адаптации completion path штатного транспорта ESXi-Arm
-  `nvme_pcie` для Raspberry Pi 5.
-- Добавлены ограниченная обработка admin CQ, один проход IO CQ после отправки и
-  до восьми продуктивных проходов lifecycle timer.
-- Используется VMKNVME completion world; инструкция задаёт
-  `vmknvme_compl_world_type=1`.
-- Поддерживается только ESXi-Arm 8.0U3c build 24449057.
-- Требуются BootBankInstaller, отключённый Secure Boot и перезагрузка.
+- Добавлено исправление одной ветки для lost wakeup в `vmknvme` сборки
+  24449057.
+- Pending-state raw-команды проверяется до первого ожидания, если транспорт уже
+  завершил команду синхронно.
+- Проверенное время `nvmeBusDriver attachDevice` снижено с 70 456 до 429 мс,
+  внешняя доступность — примерно с 66 до 26 секунд.
+- Payload транспорта `nvme_pcie` из v1.0.0 сохранён byte-for-byte.
+- Исправление упаковано как byte-preserving replacement
+  `native-misc-drivers`, поэтому модуль загружается в исходной позиции
+  `native_m.v00`.
+- Сохраняется единственный владелец CQ; таймауты не сокращаются, дополнительный
+  polling не добавлен.
