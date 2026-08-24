@@ -47,11 +47,9 @@ on VMFS6. `fio 3.39` used `libaio`, `direct=1`, one job and a 24 GB test file.
 | Durable sequential write | 1 MiB, QD16, new extent, `end_fsync=1`, followed by device flush | **160.203 MB/s** |
 | SHA-256 verification read | 1 MiB, QD16, verification enabled | **166.037 MB/s**, zero verification errors |
 
-A repeated 8 GB extent produced short cache-sensitive peaks of 848.783 MB/s
-read and 871.699 MB/s write. These are not presented as durable media rates.
-The 24 GB control above is the validated sustained result. Physical ESXi
-counters retained zero failed read/write operations, and focused logs contained
-no physical `nvme_pcie` timeout, reset, DABORT, SERROR, panic or PSOD.
+Physical ESXi counters retained zero failed read/write operations, and focused
+logs contained no physical `nvme_pcie` timeout, reset, DABORT, SERROR, panic or
+PSOD.
 
 ### Visual confirmation
 
@@ -131,12 +129,9 @@ Netac 512 ГБ проверялся в Debian 13 ARM64 VM на отдельно�
 | Устойчивая последовательная запись | 1 МиБ, QD16, новый extent, `end_fsync=1`, затем flush устройства | **160,203 МБ/с** |
 | Чтение с SHA-256 verify | 1 МиБ, QD16, проверка включена | **166,037 МБ/с**, ошибок проверки нет |
 
-Повторная работа с уже выделенным диапазоном 8 ГБ дала короткие
-cache-sensitive пики 848,783 МБ/с на чтении и 871,699 МБ/с на записи. Они не
-выдаются за устойчивую скорость носителя. Проверенный sustained-результат —
-24-гигабайтный контроль выше. Физические счётчики ESXi сохранили нулевые
-ошибки операций чтения/записи; в целевых логах отсутствовали физические
-`nvme_pcie` timeout, reset, DABORT, SERROR, panic и PSOD.
+Физические счётчики ESXi сохранили нулевые ошибки операций чтения/записи; в
+целевых логах отсутствовали физические `nvme_pcie` timeout, reset, DABORT,
+SERROR, panic и PSOD.
 
 ### Визуальное подтверждение
 
